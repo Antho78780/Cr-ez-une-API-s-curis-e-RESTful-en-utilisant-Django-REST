@@ -1,14 +1,30 @@
-from django.shortcuts import render
-from rest_framework.views import APIView
+from rest_framework.viewsets import ModelViewSet
 from rest_framework.response import Response
-from .models import Comments
-from .serializers import CommentSerializer
+from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from .models import Comment, Project, Issue
+from .serializers import CommentSerializer, ProjectSerializer, IssuesSerializer
 
-# Create your views here.
-class CommentAPIView(APIView):
 
-    def get(self, *args, **kwargs):
-        comments = Comments.objects.all()
-        serializer = CommentSerializer(comments, many=True)
-        return Response(serializer.data)
+class CommentViewset(ModelViewSet):
+    serializer_class = CommentSerializer
+
+    def get_queryset(self):
+       return Comment.objects.all()
+
+
+class ProjectViewset(ModelViewSet):
+    serializer_class = ProjectSerializer
+    permission_classes = [IsAuthenticated]
+    
+    def get_queryset(self):
+        queryset = Project.objects.all()
+        return queryset
+
+class IssuesViewset(ModelViewSet):
+    serializer_class = IssuesSerializer
+
+    def get_queryset(self):
+        return Issue.objects.all()
+
 
