@@ -20,6 +20,9 @@ class ProjectViewset(ModelViewSet):
     def get_queryset(self):
         queryset = Project.objects.all()
         return queryset
+    
+    def perform_create(self, serializer):
+        return serializer.save(author_user=self.request.user)
 
 class IssuesViewset(ModelViewSet):
     serializer_class = IssuesSerializer

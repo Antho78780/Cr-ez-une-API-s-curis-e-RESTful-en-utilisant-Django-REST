@@ -6,7 +6,7 @@ class Project(models.Model):
     title = models.CharField(max_length=128)
     description = models.CharField(max_length=1000)
     type = models.CharField(max_length=128)
-    author_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    author_user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 
 class Issue(models.Model):

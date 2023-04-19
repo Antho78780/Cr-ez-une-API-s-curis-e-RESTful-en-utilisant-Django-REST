@@ -22,3 +22,4 @@ class ProjectSerializer(ModelSerializer):
     class Meta:
         model = Project
         fields = ["title", "description", "type", "author_user"]
+        read_only_fields = ("author_user",)
