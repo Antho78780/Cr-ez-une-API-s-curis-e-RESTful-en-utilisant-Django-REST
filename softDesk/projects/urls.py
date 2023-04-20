@@ -1,14 +1,12 @@
 from django.urls import path, include
-from .views import CommentViewset, ProjectViewset, IssuesViewset
+from .views import ProjectViewset
 from rest_framework import routers
 
 app_name = "projects"
 
 router = routers.SimpleRouter()
-router.register("", ProjectViewset, basename="projects")
-router.register('issue/comments', CommentViewset, basename='comments')
-router.register("issue", IssuesViewset, basename="issues")
+router.register("projects", ProjectViewset, basename="projects")
 
 urlpatterns = [
-    path('projects/', include(router.urls))
+    path('api/', include(router.urls)),
 ]
