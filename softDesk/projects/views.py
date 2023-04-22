@@ -1,5 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from .models import  Project
 from authentification.models import Contributor
 from .serializers import ProjectSerializer
@@ -20,11 +20,16 @@ class ProjectViewset(ModelViewSet):
 
 class ContributorViewSet(ModelViewSet):
     serializer_class = ContributorSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
+        print(self.request.GET)
         queryset = Contributor.objects.all()
         return queryset
-    
+
     def perform_create(self, serializer):
-        print(serializer)
-        return super().perform_create(serializer)
+        return serializer.save(user=self.request.user)
+        
+
+    
+    
