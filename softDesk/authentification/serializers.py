@@ -28,9 +28,9 @@ class registerSerializer(serializers.ModelSerializer):
 
 
 class ContributorSerializer(ModelSerializer):
-
+   
     class Meta:
         model = Contributor
-        fields = ["user", "project", "role"]
+        fields = ["user","project", "role"]
         read_only_fields = ("user",)
     
