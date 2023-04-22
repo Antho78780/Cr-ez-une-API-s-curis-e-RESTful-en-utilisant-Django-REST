@@ -1,6 +1,6 @@
-from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import User
+from rest_framework.serializers import ModelSerializer
+from .models import User, Contributor
 
 
 class registerSerializer(serializers.ModelSerializer):
@@ -25,3 +25,12 @@ class registerSerializer(serializers.ModelSerializer):
         user.set_password(validated_data["password"])
         user.save()
         return user
+
+
+class ContributorSerializer(ModelSerializer):
+
+    class Meta:
+        model = Contributor
+        fields = ["user", "project", "role"]
+        read_only_fields = ("user",)
+    
