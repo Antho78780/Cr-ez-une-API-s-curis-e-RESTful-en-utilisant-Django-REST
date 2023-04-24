@@ -17,7 +17,7 @@ class Issue(models.Model):
     project = models.ForeignKey(Project, on_delete=models.CASCADE)
     status = models.CharField(max_length=128)
     author_user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    created_time = models.DateTimeField()
+    created_time = models.DateTimeField(auto_now_add=True)
 
 
 class Comment(models.Model):
