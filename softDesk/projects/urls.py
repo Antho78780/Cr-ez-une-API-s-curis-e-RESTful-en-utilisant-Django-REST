@@ -1,17 +1,27 @@
 from django.urls import path, include
-from .views import ProjectViewset, ContributorViewSet, ContributorDestroyViewSet, IssuesViewSet, IssueUpdateDestroyViewSet
+from projects import views
 from rest_framework import routers
 
 app_name = "projects"
 
-router = routers.DefaultRouter()
-router.register(r"projects", ProjectViewset, basename="projects")
+router1 = routers.DefaultRouter()
+router1.register(r"", views.ProjectViewset, basename="projects")
 
+router2 = routers.DefaultRouter()
+router2.register(r"users", views.ContributorViewSet, basename="contributor")
+
+router3 = routers.DefaultRouter()
+router3.register(r"issues", views.IssueViewSet, basename="issues")
+
+router4 = routers.DefaultRouter()
+router4.register(r"comments",views.CommentViewSet, basename="comments")
 
 urlpatterns = [
-    path("projects/<project_id>/users/", ContributorViewSet.as_view(), name="contributor"),
-    path("projects/<project_id>/users/<user_id>/", ContributorDestroyViewSet.as_view(), name="destroy_user"),
-    path("projects/<project_id>/issues/", IssuesViewSet.as_view(), name="issues"),
-    path("projects/<project_id>/issues/<issue_id>/", IssueUpdateDestroyViewSet.as_view(), name="update_destroy_issue")
+    path("projects/", include(router1.urls)),
+    path("projects/<project_id>/", include(router2.urls)),
+    path("projects/<project_id>/", include(router3.urls)),
+    path("projects/<project_id>/issues/<issue_id>/", include(router4.urls))
 ]
-urlpatterns += router.urls  
+
+urlpatterns += router2.urls
+    

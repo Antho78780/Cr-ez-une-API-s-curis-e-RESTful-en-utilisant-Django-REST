@@ -8,6 +8,7 @@ class CommentSerializer(ModelSerializer):
     class Meta:
         model = Comment
         fields = ["description", "author_user", "issue", "created_time"]
+        read_only_fields = ("author_user", "issue",)
 
 
 class IssuesSerializer(ModelSerializer):
@@ -15,6 +16,7 @@ class IssuesSerializer(ModelSerializer):
     class Meta:
         model = Issue
         fields = ["title", "description", "tag", "priority", "status", "project", "author_user", "created_time"]
+        read_only_fields = ("author_user", "project",)
 
 
 class ProjectSerializer(ModelSerializer):
